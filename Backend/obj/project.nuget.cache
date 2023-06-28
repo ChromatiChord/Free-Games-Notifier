@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lmtsnuV77Sj9mijHkgooFdKTmlPYJjPHShNQ3CqadQEamjIZdm4sBb1hB19RbZ1FtAaUsICcEnzBniNz2VzCIA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\Gamenotifier.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\William\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
