@@ -16,7 +16,6 @@ public class EpicGamesApi {
         {
             response.EnsureSuccessStatusCode();
             var body = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("Finished!");
             return body;
         }
     }

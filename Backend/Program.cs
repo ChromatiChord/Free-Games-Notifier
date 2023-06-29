@@ -1,21 +1,25 @@
-﻿using System;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Newtonsoft.Json.Linq;
+var builder = WebApplication.CreateBuilder(args);
 
-class Program
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    async static Task Main(string[] args)
-    {
-        HttpClient client = new();
-        EpicGamesApi apiController = new();
-        EpicGamesParser epicParserController = new();
-        EmailClientController emailController = new();
-
-        var resp = await apiController.MakeRequest(client);
-        List<EpicGameInfo> currentEpicGames = epicParserController.GetCurrentGamesFromEpicRequest(resp);
-
-        emailController.SendEmail(EpicGamesEmailMessageBuilder.BuildEpicGamesMessage(currentEpicGames), "callumward56@gmail.com"); 
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

@@ -4,22 +4,9 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-public struct EpicGameInfo
-{
-    public string Name { get; }
-    public string ProductUrl { get; }
-
-    public EpicGameInfo(string name, string productUrl)
-    {
-        Name = name;
-        ProductUrl = productUrl;
-    }
-}
-
-
 class EpicGamesParser {
-    public List<EpicGameInfo> GetCurrentGamesFromEpicRequest(string jsonString) {
-        List<EpicGameInfo> currentGames = new();
+    public List<EpicGameInfoModel> GetCurrentGamesFromEpicRequest(string jsonString) {
+        List<EpicGameInfoModel> currentGames = new();
 
         var json = JObject.Parse(jsonString);
 
@@ -54,7 +41,7 @@ class EpicGamesParser {
                 DateTime endDate = DateTime.Parse(promoInfo["endDate"].ToString());    
 
                 if (confirmIsGameCurrent(startDate, endDate)) {
-                    currentGames.Add(new EpicGameInfo(title, urlRoute));
+                    currentGames.Add(new EpicGameInfoModel(title, urlRoute));
                 }        
 
             }

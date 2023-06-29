@@ -1,8 +1,8 @@
 static class EpicGamesEmailMessageBuilder {
-    public static string BuildEpicGamesMessage(List<EpicGameInfo> epicGames) {
+    public static string BuildEpicGamesMessage(List<EpicGameInfoModel> epicGames) {
         string epicGamesList = "";
 
-        foreach (EpicGameInfo game in epicGames) {
+        foreach (EpicGameInfoModel game in epicGames) {
             epicGamesList += $"<li><a href=\"{game.ProductUrl}\">{game.Name}</a></li>";
         }
         
