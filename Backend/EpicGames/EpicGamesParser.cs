@@ -1,49 +1,44 @@
-using System;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
 class EpicGamesParser {
     public List<EpicGameInfoModel> GetCurrentGamesFromEpicRequest(string jsonString) {
         List<EpicGameInfoModel> currentGames = new();
 
-        var json = JObject.Parse(jsonString);
+        var json = JObject.Parse(jsonString) ?? throw new Exception("String Not Found");
 
-        if (json is null) {
-            throw new Exception("String Not Found");
-        }
-
-        foreach (JObject game in json["data"]["Catalog"]["searchStore"]["elements"]) {
-            if (game["promotions"].ToString() == "") {
+        JArray elements = json["data"]?["Catalog"]?["searchStore"]?["elements"] as JArray ?? new JArray();
+        foreach (JObject game in elements) {
+            if (game["promotions"]?.ToString() == "") {
                 continue; 
             }
-            string title = game["title"].ToString();
+            string title = game["title"]?.ToString() ?? "";
 
-            string productSlug = null;
-            foreach (JObject obj in game["customAttributes"])
+            string? productSlug = null;
+            foreach (JObject obj in game["customAttributes"] ?? new JArray())
             {
-                if ((string)obj["key"] == "com.epicgames.app.productSlug")
+                if (obj["key"]?.ToString() == "com.epicgames.app.productSlug")
                 {
-                    productSlug = (string)obj["value"];
-                    break;
+                    productSlug = obj["value"]?.ToString();
+                    if (productSlug != null) 
+                    {
+                        break;
+                    }
                 }
             }
 
             string urlRoute = $"store.epicgames.com/en-US/p/{productSlug}";
 
-            var currentPromotionalOffers = game["promotions"]["promotionalOffers"];
+            var currentPromotionalOffers = game["promotions"]?["promotionalOffers"];
 
-            if ((currentPromotionalOffers as JArray).Count != 0) {
-                var promoInfo = game["promotions"]["promotionalOffers"][0]["promotionalOffers"][0];
+            if ((currentPromotionalOffers as JArray)?.Count != 0) {
+                var promoInfo = game["promotions"]?["promotionalOffers"]?[0]?["promotionalOffers"]?[0];
         
-                DateTime startDate = DateTime.Parse(promoInfo["startDate"].ToString());
-                DateTime endDate = DateTime.Parse(promoInfo["endDate"].ToString());    
+                DateTime startDate = DateTime.Parse(promoInfo?["startDate"]?.ToString() ?? "");
+                DateTime endDate = DateTime.Parse(promoInfo?["endDate"]?.ToString() ?? "");    
 
                 if (confirmIsGameCurrent(startDate, endDate)) {
                     currentGames.Add(new EpicGameInfoModel(title, urlRoute));
                 }        
-
             }
         }
         return currentGames;
