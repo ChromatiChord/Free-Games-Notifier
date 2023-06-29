@@ -16,11 +16,6 @@ class Program
         var resp = await apiController.MakeRequest(client);
         List<EpicGameInfo> currentEpicGames = epicParserController.GetCurrentGamesFromEpicRequest(resp);
 
-        foreach (var game in currentEpicGames) {
-            Console.WriteLine(game.Name);
-            Console.WriteLine(game.ProductUrl);
-        }
-
-        emailController.SendEmail(currentEpicGames); 
+        emailController.SendEmail(EpicGamesEmailMessageBuilder.BuildEpicGamesMessage(currentEpicGames), "callumward56@gmail.com"); 
     }
 }
