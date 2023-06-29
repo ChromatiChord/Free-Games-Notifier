@@ -7,7 +7,7 @@ static class EpicGamesEmailMessageBuilder {
         }
         
         string returnString = $@"<div>Hi,<br/>
-            Here's a list of all the new free epic games currently available:<br/>
+            There are some new free Epic Games for you to try! Here they are:<br/>
             <ul>
             {epicGamesList}
             </ul>
