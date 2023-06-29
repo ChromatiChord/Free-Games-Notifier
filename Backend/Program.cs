@@ -11,13 +11,16 @@ class Program
         HttpClient client = new();
         EpicGamesApi apiController = new();
         EpicGamesParser epicParserController = new();
+        EmailClientController emailController = new();
 
         var resp = await apiController.MakeRequest(client);
-        List<EpicGameInfo> currentGames = epicParserController.GetCurrentGamesFromEpicRequest(resp);
+        List<EpicGameInfo> currentEpicGames = epicParserController.GetCurrentGamesFromEpicRequest(resp);
 
-        foreach (var game in currentGames) {
+        foreach (var game in currentEpicGames) {
             Console.WriteLine(game.Name);
-            Console.WriteLine($"store.epicgames.com/en-US/p/{game.ProductSlug}");
+            Console.WriteLine(game.ProductUrl);
         }
+
+        emailController.SendEmail(currentEpicGames); 
     }
 }

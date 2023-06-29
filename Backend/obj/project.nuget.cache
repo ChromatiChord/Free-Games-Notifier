@@ -1,10 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "lmtsnuV77Sj9mijHkgooFdKTmlPYJjPHShNQ3CqadQEamjIZdm4sBb1hB19RbZ1FtAaUsICcEnzBniNz2VzCIA==",
+  "dgSpecHash": "ocyRpC8g112dH8fYFl+FiKNqclRuE3Djaw52MZW4nZ6GXWjbXz2XrOQGTJGsXpWRZKDNinXX+O5ZikTkLVefUg==",
   "success": true,
   "projectFilePath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\Gamenotifier.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\William\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+    "C:\\Users\\William\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\mailkit\\4.1.0\\mailkit.4.1.0.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\mimekit\\4.1.0\\mimekit.4.1.0.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\sendgrid\\9.28.1\\sendgrid.9.28.1.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\starkbank-ecdsa\\1.3.3\\starkbank-ecdsa.1.3.3.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\system.formats.asn1\\7.0.0\\system.formats.asn1.7.0.0.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\system.security.cryptography.pkcs\\7.0.2\\system.security.cryptography.pkcs.7.0.2.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\system.text.encoding.codepages\\7.0.0\\system.text.encoding.codepages.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

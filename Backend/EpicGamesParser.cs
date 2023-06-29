@@ -7,12 +7,12 @@ using Newtonsoft.Json.Linq;
 public struct EpicGameInfo
 {
     public string Name { get; }
-    public string ProductSlug { get; }
+    public string ProductUrl { get; }
 
-    public EpicGameInfo(string name, string productSlug)
+    public EpicGameInfo(string name, string productUrl)
     {
         Name = name;
-        ProductSlug = productSlug;
+        ProductUrl = productUrl;
     }
 }
 
@@ -43,7 +43,7 @@ class EpicGamesParser {
                 }
             }
 
-            // string urlRoute = $"store.epicgames.com/en-US/p/{productSlug}";
+            string urlRoute = $"store.epicgames.com/en-US/p/{productSlug}";
 
             var currentPromotionalOffers = game["promotions"]["promotionalOffers"];
 
@@ -54,7 +54,7 @@ class EpicGamesParser {
                 DateTime endDate = DateTime.Parse(promoInfo["endDate"].ToString());    
 
                 if (confirmIsGameCurrent(startDate, endDate)) {
-                    currentGames.Add(new EpicGameInfo(title, productSlug));
+                    currentGames.Add(new EpicGameInfo(title, urlRoute));
                 }        
 
             }

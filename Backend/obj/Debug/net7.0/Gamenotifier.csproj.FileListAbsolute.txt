@@ -32,3 +32,10 @@ C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\
 C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\Gamenotifier.pdb
 C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\Gamenotifier.genruntimeconfig.cache
 C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\ref\Gamenotifier.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\SendGrid.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\StarkbankEcdsa.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\MailKit.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\MimeKit.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
