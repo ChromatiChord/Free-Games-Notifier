@@ -5,17 +5,26 @@ namespace GamesNotifierApp.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class DBInteractController : ControllerBase
+public class EpicGamesDBInteractController : ControllerBase
 {
-    private readonly ILogger<DBInteractController> _logger;
+    private readonly ILogger<EpicGamesDBInteractController> _logger;
 
-    public DBInteractController(ILogger<DBInteractController> logger)
+    public EpicGamesDBInteractController(ILogger<EpicGamesDBInteractController> logger)
     {
         _logger = logger;
     }
 
-    [HttpPost(Name = "SaveItemsToDB")]
-    public async Task<IActionResult> Post([FromBody] ClientUpdateModel body)
+    [HttpGet("GetCurrentEpicGamesInDB", Name = "GetCurrentEpicGamesInDB")]
+    public IActionResult Get() {
+        DatabaseIO databaseController = new();
+        List<EpicGameInfoModel> data = databaseController.RetrieveFromEpicGamesDB();
+        
+        return Ok(data);
+    }
+
+    [HttpPut("ForceUpdateEpicGamesDB", Name = "ForceUpdateEpicGamesDB")]
+    [RequireAuth]
+    public async Task<IActionResult> Put()
     {
 
         HttpClient client = new();
@@ -30,13 +39,5 @@ public class DBInteractController : ControllerBase
 
         return Ok("Success");
 
-    }
-
-    [HttpGet(Name = "GetItemsFromDB")]
-    public IActionResult Get() {
-        DatabaseIO databaseController = new();
-        List<EpicGameInfoModel> data = databaseController.RetrieveFromEpicGamesDB();
-        
-        return Ok(data);
     }
 }
