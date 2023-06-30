@@ -5,6 +5,10 @@ static class AuthenticationHelper {
 
         string hashedTargetToken = Environment.GetEnvironmentVariable("GAMESREMINDER_AUTH_TOKEN") ?? "";
 
+        if (hashedTargetToken == "") {
+            return new BadRequestObjectResult("No internal auth token set");
+        }
+
         if (!request.Headers.TryGetValue("Authorization", out var headerValues)) {
             return new BadRequestObjectResult("No authorization header");
         }
