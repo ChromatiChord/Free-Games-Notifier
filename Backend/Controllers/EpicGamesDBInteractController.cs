@@ -23,7 +23,7 @@ public class EpicGamesDBInteractController : ControllerBase
     }
 
     [HttpPut("ForceUpdateEpicGamesDB", Name = "ForceUpdateEpicGamesDB")]
-    [RequireAuth]
+    [RequireAdminAuth]
     public async Task<IActionResult> Put()
     {
 

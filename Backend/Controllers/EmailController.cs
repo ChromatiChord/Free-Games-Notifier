@@ -15,7 +15,7 @@ public class EmailController : ControllerBase
     }
 
     [HttpGet("GetEmails", Name = "GetEmails")]
-    [RequireAuth]
+    [RequireAdminAuth]
     public IActionResult Get()
     {
         DatabaseIO db = new();
@@ -37,7 +37,7 @@ public class EmailController : ControllerBase
     }
 
     [HttpDelete("RemoveEmail", Name = "RemoveEmail")]
-    [RequireAuth]
+    [RequireAdminAuth]
     [ValidateEmail]
     public IActionResult Delete([FromBody] ClientUpdateModel body)
     {
@@ -50,7 +50,7 @@ public class EmailController : ControllerBase
     }
 
     [HttpPost("DumpEmails", Name = "DumpEmails")]
-    [RequireAuth]
+    [RequireAdminAuth]
     public IActionResult Post([FromBody] ClientUpdateModel body)
     {        
         DatabaseIO db = new();

@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 
 static class AuthenticationHelper {
-    public static IActionResult AuthenticateRequest(HttpRequest request) {
+    public static IActionResult AuthenticateRequest(HttpRequest request, bool isAdmin) {
 
-        string hashedTargetToken = Environment.GetEnvironmentVariable("GAMESREMINDER_AUTH_TOKEN") ?? "";
+        string tokenTarget = isAdmin ? "GAMESREMINDER_AUTH_ADMIN_TOKEN" : "GAMESREMINDER_AUTH_TOKEN";
+        string hashedTargetToken = Environment.GetEnvironmentVariable(tokenTarget) ?? "";
 
         if (hashedTargetToken == "") {
             return new BadRequestObjectResult("No internal auth token set");
@@ -16,7 +17,8 @@ static class AuthenticationHelper {
         string strippedHeaderValue = headerValues.ToString().Substring(headerValues.ToString().IndexOf("Bearer ") + "Bearer ".Length);
 
         if (HashHelper.HashString(strippedHeaderValue) != hashedTargetToken) {
-            return new UnauthorizedObjectResult("Invalid token");
+            string invalidTokenMessage = isAdmin ? "Invalid token or token doesn't have admin permissions" : "Invalid token";
+            return new UnauthorizedObjectResult(invalidTokenMessage);
         }
 
         return new OkResult();

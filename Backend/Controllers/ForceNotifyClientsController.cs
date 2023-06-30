@@ -15,7 +15,7 @@ public class ForceNotifyClientsController : ControllerBase
     }
 
     [HttpPost(Name = "ClientUpdater")]
-    [RequireAuth]
+    [RequireAdminAuth]
     public async Task<IActionResult> Post()
     {
         await MessageConstructor.DeliverMessageToClients();

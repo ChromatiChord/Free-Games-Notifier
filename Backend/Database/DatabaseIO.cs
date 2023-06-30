@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
-using System.Linq;
 
 class DatabaseIO {
     private string _epicGamesDbPath = "./Database/epicgamesdb.json";
@@ -21,7 +18,8 @@ class DatabaseIO {
         }
 
         string json = File.ReadAllText(_epicGamesDbPath);
-        return JsonSerializer.Deserialize<List<EpicGameInfoModel>>(json);
+        var result = JsonSerializer.Deserialize<List<EpicGameInfoModel>>(json);
+        return result ?? new List<EpicGameInfoModel>();
     }
 
     public EmailDBModel RetrieveFromEmailsDB()
@@ -32,7 +30,8 @@ class DatabaseIO {
         }
 
         string json = File.ReadAllText(_emailsDbPath);
-        return JsonSerializer.Deserialize<EmailDBModel>(json);
+        var result = JsonSerializer.Deserialize<EmailDBModel>(json);
+        return result ?? new EmailDBModel();
     }
 
     public void DumpToEmailsDB() {
@@ -50,6 +49,9 @@ class DatabaseIO {
     {
         EmailDBModel data = RetrieveFromEmailsDB();
 
+        if(data.emails == null)
+            data.emails = new List<string>();
+
         data.emails.Add(email);
 
         WriteToEmailDB(data);
@@ -58,7 +60,7 @@ class DatabaseIO {
     public void RemoveEmailFromDB(string email) {
         EmailDBModel data = RetrieveFromEmailsDB();
 
-        data.emails.Remove(email);
+        data.emails?.Remove(email);
 
         WriteToEmailDB(data);
     }
@@ -66,6 +68,6 @@ class DatabaseIO {
     public List<string> GetEmails() {
         EmailDBModel data = RetrieveFromEmailsDB();
 
-        return data.emails;
+        return data.emails ?? new List<string>();
     }
 }
