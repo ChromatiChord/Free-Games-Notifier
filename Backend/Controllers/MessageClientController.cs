@@ -32,7 +32,7 @@ public class MessageClientController : ControllerBase
             return BadRequest("Not a valid Email");
         }
 
-        await MessageConstructor.DeliverMessageToClient(body.Email);
+        await MessageConstructor.DeliverMessageToClients();
         return Ok("Success");
 
     }

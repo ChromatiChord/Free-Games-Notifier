@@ -26,7 +26,7 @@ public class DBInteractController : ControllerBase
         var resp = await apiController.MakeRequest(client);
         List<EpicGameInfoModel> currentEpicGames = epicParser.GetCurrentGamesFromEpicRequest(resp);
 
-        databaseController.SaveToDB(currentEpicGames);
+        databaseController.WriteEpicGamesDB(currentEpicGames);
 
         return Ok("Success");
 
@@ -35,7 +35,7 @@ public class DBInteractController : ControllerBase
     [HttpGet(Name = "GetItemsFromDB")]
     public IActionResult Get() {
         DatabaseIO databaseController = new();
-        List<EpicGameInfoModel> data = databaseController.RetrieveFromDB();
+        List<EpicGameInfoModel> data = databaseController.RetrieveFromEpicGamesDB();
         
         return Ok(data);
     }

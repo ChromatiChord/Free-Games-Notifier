@@ -8,11 +8,11 @@ class EpicGamesUpdateCheck {
         var resp = await apiController.MakeRequest(client);
         List<EpicGameInfoModel> currentEpicGames = epicParser.GetCurrentGamesFromEpicRequest(resp);
 
-        List<EpicGameInfoModel> storedEpicGames = databaseController.RetrieveFromDB();
+        List<EpicGameInfoModel> storedEpicGames = databaseController.RetrieveFromEpicGamesDB();
 
         if (!areListsEqual(currentEpicGames, storedEpicGames)) {
-            await MessageConstructor.DeliverMessageToClient("callumward56@gmail.com");
-            databaseController.SaveToDB(currentEpicGames);
+            await MessageConstructor.DeliverMessageToClients();
+            databaseController.WriteEpicGamesDB(currentEpicGames);
         } 
     }
 

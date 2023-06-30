@@ -76,4 +76,6 @@ C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\
 C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\GamesNotifierApp.pdb
 C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\GamesNotifierApp.genruntimeconfig.cache
 C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\obj\Debug\net7.0\ref\GamesNotifierApp.dll
-C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\database.json
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\HtmlAgilityPack.dll
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\Database\epicgamesdb.json
+C:\Users\William\Desktop\Languages\Csharp\GameNotifier\Backend\bin\Debug\net7.0\Database\emails.json

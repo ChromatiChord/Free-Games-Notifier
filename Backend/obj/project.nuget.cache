@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "NhaIGdTqfWn05PsKlWoNQ7JAPxD+nIv9sv89EQPiQ28nSuQ1IfwrdcT2XlICFvPdXjsG9taTN9az0haVZChGpw==",
+  "dgSpecHash": "F9wruNr3riOqiLiOWAf2xC56sHsl5qPrfKlgSD+4a3d30jbLEVGsd8hpv8W9q5uNCYpwNyCjArYxlqDYwtfLZw==",
   "success": true,
   "projectFilePath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\William\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
+    "C:\\Users\\William\\.nuget\\packages\\htmlagilitypack\\1.11.48\\htmlagilitypack.1.11.48.nupkg.sha512",
     "C:\\Users\\William\\.nuget\\packages\\mailkit\\4.1.0\\mailkit.4.1.0.nupkg.sha512",
     "C:\\Users\\William\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\William\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

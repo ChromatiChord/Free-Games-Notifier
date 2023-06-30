@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "GamesNotifierApp/1.0.0": {
         "dependencies": {
+          "HtmlAgilityPack": "1.11.48",
           "MailKit": "4.1.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.5",
           "Newtonsoft.Json": "13.0.3",
@@ -22,6 +23,14 @@
           "lib/net6.0/BouncyCastle.Cryptography.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.2.1.47552"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.11.48": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.48.0",
+            "fileVersion": "1.11.48.0"
           }
         }
       },
@@ -152,6 +161,13 @@
       "sha512": "sha512-A6Zr52zVqJKt18ZBsTnX0qhG0kwIQftVAjLmszmkiR/trSp8H+xj1gUOzk7XHwaKgyREMSV1v9XaKrBUeIOdvQ==",
       "path": "bouncycastle.cryptography/2.2.1",
       "hashPath": "bouncycastle.cryptography.2.2.1.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.11.48": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BTYfqMoTtnlUz5hqJZ3qxh/SDWMtJAulcz2vIr2TRj5BhfdJZD1E1HSpNI9rvIQiYJzl2xoVtCNzCcANjzbScQ==",
+      "path": "htmlagilitypack/1.11.48",
+      "hashPath": "htmlagilitypack.1.11.48.nupkg.sha512"
     },
     "MailKit/4.1.0": {
       "type": "package",
