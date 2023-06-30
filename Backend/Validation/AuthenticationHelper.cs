@@ -21,7 +21,7 @@ static class AuthenticationHelper {
                 return new UnauthorizedObjectResult("Invalid token or token doesn't have admin permissions");
             }
         } else {
-            if (HashHelper.HashString(strippedHeaderValue) != hashedTargetToken || HashHelper.HashString(strippedHeaderValue) != hashedAdminTargetToken) {
+            if (HashHelper.HashString(strippedHeaderValue) != hashedTargetToken && HashHelper.HashString(strippedHeaderValue) != hashedAdminTargetToken) {
                 return new UnauthorizedObjectResult("Invalid token");
             }
         }
