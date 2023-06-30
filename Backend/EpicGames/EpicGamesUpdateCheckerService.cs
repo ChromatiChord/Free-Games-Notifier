@@ -5,16 +5,16 @@ using Microsoft.Extensions.Hosting;
 
 public class EpicGamesUpdateCheckerService : IHostedService, IDisposable
 {
-    private Timer _timer;
+    private Timer? _timer;
     private EpicGamesUpdateCheck _epicCheckController = new();
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+        _timer = new Timer(_ => DoWork(), null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
         return Task.CompletedTask;
     }
 
-    private void DoWork(object state)
+    private void DoWork()
     {
         _epicCheckController.EpicGamesUpdateChecker();
     }

@@ -1,62 +1,68 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GamesNotifierApp.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class EmailController : ControllerBase
+namespace GamesNotifierApp.Controllers
 {
-    private readonly ILogger<EmailController> _logger;
-
-    public EmailController(ILogger<EmailController> logger)
+    [ApiController]
+    [Route("[controller]")]
+    public class EmailController : ControllerBase
     {
-        _logger = logger;
-    }
+        private readonly ILogger<EmailController> _logger;
 
-    [HttpGet("GetEmails", Name = "GetEmails")]
-    [RequireAdminAuth]
-    public IActionResult Get()
-    {
-        DatabaseIO db = new();
-        var emails = db.GetEmails();
+        public EmailController(ILogger<EmailController> logger)
+        {
+            _logger = logger;
+        }
 
-        return Ok(emails);
-    }
+        [HttpGet("GetEmails", Name = "GetEmails")]
+        [RequireAdminAuth]
+        public IActionResult Get()
+        {
+            DatabaseIO db = new();
+            var emails = db.GetEmails();
 
-    [HttpPut("AddEmail", Name = "AddEmail")]
-    [RequireAuth]
-    [ValidateEmail]
-    public IActionResult Put([FromBody] ClientUpdateModel body)
-    {
-        DatabaseIO db = new();
-        db.AddEmailToDb(body.Email);
+            return Ok(emails);
+        }
 
-        return Ok("Success");
+        [HttpPut("AddEmail", Name = "AddEmail")]
+        [RequireAuth]
+        [ValidateEmail]
+        public IActionResult Put([FromBody] ClientUpdateModel body)
+        {
+            if (body.Email == null)
+            {
+                return BadRequest("Email is null");
+            }
+            
+            DatabaseIO db = new();
+            db.AddEmailToDb(body.Email);
 
-    }
+            return Ok("Success");
+        }
 
-    [HttpDelete("RemoveEmail", Name = "RemoveEmail")]
-    [RequireAdminAuth]
-    [ValidateEmail]
-    public IActionResult Delete([FromBody] ClientUpdateModel body)
-    {
+        [HttpDelete("RemoveEmail", Name = "RemoveEmail")]
+        [RequireAdminAuth]
+        [ValidateEmail]
+        public IActionResult Delete([FromBody] ClientUpdateModel body)
+        {
+            if (body.Email == null)
+            {
+                return BadRequest("Email is null");
+            }
+            
+            DatabaseIO db = new();
+            db.RemoveEmailFromDB(body.Email);
 
-        DatabaseIO db = new();
-        db.RemoveEmailFromDB(body.Email);
+            return Ok("Success");
+        }
 
-        return Ok("Success");
+        [HttpPost("DumpEmails", Name = "DumpEmails")]
+        [RequireAdminAuth]
+        public IActionResult Post([FromBody] ClientUpdateModel body)
+        {        
+            DatabaseIO db = new();
+            db.DumpToEmailsDB();
 
-    }
-
-    [HttpPost("DumpEmails", Name = "DumpEmails")]
-    [RequireAdminAuth]
-    public IActionResult Post([FromBody] ClientUpdateModel body)
-    {        
-        DatabaseIO db = new();
-        // var emails = db.GetEmails();
-        db.DumpToEmailsDB();
-
-        return Ok();
+            return Ok();
+        }
     }
 }
