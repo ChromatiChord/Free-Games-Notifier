@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 static class AuthenticationHelper {
     public static IActionResult AuthenticateRequest(HttpRequest request, bool isAdmin) {
 
-        string tokenTarget = isAdmin ? "GAMESREMINDER_AUTH_ADMIN_TOKEN" : "GAMESREMINDER_AUTH_TOKEN";
-        string hashedTargetToken = Environment.GetEnvironmentVariable(tokenTarget) ?? "";
+        string hashedTargetToken = Environment.GetEnvironmentVariable("GAMESREMINDER_AUTH_TOKEN") ?? "";
+        string hashedAdminTargetToken = Environment.GetEnvironmentVariable("GAMESREMINDER_AUTH_ADMIN_TOKEN") ?? "";
 
         if (hashedTargetToken == "") {
             return new BadRequestObjectResult("No internal auth token set");
@@ -15,12 +15,17 @@ static class AuthenticationHelper {
         }
 
         string strippedHeaderValue = headerValues.ToString().Substring(headerValues.ToString().IndexOf("Bearer ") + "Bearer ".Length);
-
-        if (HashHelper.HashString(strippedHeaderValue) != hashedTargetToken) {
-            string invalidTokenMessage = isAdmin ? "Invalid token or token doesn't have admin permissions" : "Invalid token";
-            return new UnauthorizedObjectResult(invalidTokenMessage);
+        
+        if (isAdmin) {
+            if (HashHelper.HashString(strippedHeaderValue) != hashedAdminTargetToken) {
+                return new UnauthorizedObjectResult("Invalid token or token doesn't have admin permissions");
+            }
+        } else {
+            if (HashHelper.HashString(strippedHeaderValue) != hashedTargetToken || HashHelper.HashString(strippedHeaderValue) != hashedAdminTargetToken) {
+                return new UnauthorizedObjectResult("Invalid token");
+            }
         }
-
+        
         return new OkResult();
     }
 }
