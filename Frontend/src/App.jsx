@@ -1,15 +1,27 @@
-import { Container } from '@mui/material';
+import { Container, Box } from '@mui/material';
 import Form from './Form';
+import { imageSource } from './config';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <Container 
-    maxWidth='sm'
-    sx={{
-      marginTop: '10%',
-    }}>
-      <Form />
-    </Container>
+    <Box sx={{ bgcolor: 'black', height: '100vh' }}>
+      <ToastContainer />
+      <Container 
+        maxWidth='sm'
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}>
+        <Box sx={{ marginBottom: 2 }}>
+          <img src={imageSource} alt="Epic Games Logo"  height="170vh"/>
+        </Box>
+        <Form />
+      </Container>
+    </Box>
   );
 }
 
