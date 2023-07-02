@@ -8,6 +8,7 @@ namespace GamesNotifierApp.Controllers;
 public class EpicGamesDBInteractController : ControllerBase
 {
     private readonly ILogger<EpicGamesDBInteractController> _logger;
+    private IDatabaseIO _dbIO = DataIOFactory.DatabaseIOCreate();
 
     public EpicGamesDBInteractController(ILogger<EpicGamesDBInteractController> logger)
     {
@@ -15,9 +16,8 @@ public class EpicGamesDBInteractController : ControllerBase
     }
 
     [HttpGet("GetCurrentEpicGamesInDB", Name = "GetCurrentEpicGamesInDB")]
-    public IActionResult Get() {
-        DatabaseIO databaseController = new();
-        List<EpicGameInfoModel> data = databaseController.RetrieveFromEpicGamesDB();
+    public async Task<IActionResult> Get() {
+        List<EpicGameInfoModel> data = await _dbIO.RetrieveFromEpicGamesDB();
         
         return Ok(data);
     }
@@ -30,12 +30,11 @@ public class EpicGamesDBInteractController : ControllerBase
         HttpClient client = new();
         EpicGamesApi apiController = new();
         EpicGamesParser epicParser = new();
-        DatabaseIO databaseController = new();
 
         var resp = await apiController.MakeRequest(client);
         List<EpicGameInfoModel> currentEpicGames = epicParser.GetCurrentGamesFromEpicRequest(resp);
 
-        databaseController.WriteEpicGamesDB(currentEpicGames);
+        _dbIO.WriteEpicGamesDB(currentEpicGames);
 
         return Ok("Success");
 

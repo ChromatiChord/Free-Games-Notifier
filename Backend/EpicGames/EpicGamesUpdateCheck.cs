@@ -3,16 +3,18 @@ class EpicGamesUpdateCheck {
         HttpClient client = new();
         EpicGamesApi apiController = new();
         EpicGamesParser epicParser = new();
-        DatabaseIO databaseController = new();
+        IDatabaseIO dbIO = DataIOFactory.DatabaseIOCreate();
+
+        
 
         var resp = await apiController.MakeRequest(client);
         List<EpicGameInfoModel> currentEpicGames = epicParser.GetCurrentGamesFromEpicRequest(resp);
 
-        List<EpicGameInfoModel> storedEpicGames = databaseController.RetrieveFromEpicGamesDB();
+        List<EpicGameInfoModel> storedEpicGames = await dbIO.RetrieveFromEpicGamesDB();
 
         if (!areListsEqual(currentEpicGames, storedEpicGames)) {
             await MessageConstructor.DeliverMessageToClients();
-            databaseController.WriteEpicGamesDB(currentEpicGames);
+            dbIO.WriteEpicGamesDB(currentEpicGames);
         } 
     }
 

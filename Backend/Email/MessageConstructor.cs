@@ -5,14 +5,15 @@ static class MessageConstructor
         EpicGamesApi apiController = new();
         EpicGamesParser epicParser = new();
 
-        DatabaseIO databaseObj = new();
+        IDatabaseIO dbIO = DataIOFactory.DatabaseIOCreate();
+
 
         EmailSender emailController = new();
 
         var resp = await apiController.MakeRequest(client);
         List<EpicGameInfoModel> currentEpicGames = epicParser.GetCurrentGamesFromEpicRequest(resp);
         
-        List<string> emails = databaseObj.GetEmails();
+        List<string> emails = await dbIO.GetEmails();
 
         foreach (string email in emails) {
             emailController.SendEmail(EpicGamesEmailMessageBuilder.BuildEpicGamesMessage(currentEpicGames), email); 

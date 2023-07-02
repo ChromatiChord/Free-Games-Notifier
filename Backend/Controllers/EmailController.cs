@@ -7,6 +7,7 @@ namespace GamesNotifierApp.Controllers
     public class EmailController : ControllerBase
     {
         private readonly ILogger<EmailController> _logger;
+        private IDatabaseIO _dbIO = DataIOFactory.DatabaseIOCreate();
 
         public EmailController(ILogger<EmailController> logger)
         {
@@ -17,8 +18,7 @@ namespace GamesNotifierApp.Controllers
         [RequireAdminAuth]
         public IActionResult Get()
         {
-            DatabaseIO db = new();
-            var emails = db.GetEmails();
+            var emails = _dbIO.GetEmails();
 
             return Ok(emails);
         }
@@ -33,8 +33,7 @@ namespace GamesNotifierApp.Controllers
                 return BadRequest("Email is null");
             }
             
-            DatabaseIO db = new();
-            db.AddEmailToDb(body.Email);
+            _dbIO.AddEmailToDb(body.Email);
 
             return Ok("Success");
         }
@@ -49,8 +48,7 @@ namespace GamesNotifierApp.Controllers
                 return BadRequest("Email is null");
             }
             
-            DatabaseIO db = new();
-            db.RemoveEmailFromDB(body.Email);
+            _dbIO.RemoveEmailFromDB(body.Email);
 
             return Ok("Success");
         }
@@ -59,8 +57,7 @@ namespace GamesNotifierApp.Controllers
         [RequireAdminAuth]
         public IActionResult Post([FromBody] ClientUpdateModel body)
         {        
-            DatabaseIO db = new();
-            db.DumpToEmailsDB();
+            _dbIO.DumpToEmailsDB();
 
             return Ok();
         }

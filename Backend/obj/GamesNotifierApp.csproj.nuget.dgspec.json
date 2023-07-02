@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj": {}
+    "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\GamesNotifierApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj": {
+    "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\GamesNotifierApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj",
+        "projectUniqueName": "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\GamesNotifierApp.csproj",
         "projectName": "GamesNotifierApp",
-        "projectPath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj",
-        "packagesPath": "C:\\Users\\William\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\obj\\",
+        "projectPath": "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\GamesNotifierApp.csproj",
+        "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\William\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\thoma\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -38,6 +38,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Google.Cloud.Firestore": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.11.48, )"
