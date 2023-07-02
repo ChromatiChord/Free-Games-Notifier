@@ -1,13 +1,13 @@
 using System;
 
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
 
 class EmailSender
 {
     public void SendEmail(string emailBodyText, string recipient)
     {
+        string emailAppKey = Environment.GetEnvironmentVariable("GAMESREMINDER_APP_KEY") ?? "";
         var email = new MimeMessage();
 
         email.From.Add(new MailboxAddress("Free Games Reminder", "freegamesreminder@gmail.com"));
@@ -21,7 +21,7 @@ class EmailSender
         using (var smtp = new SmtpClient())
         {
             smtp.Connect("smtp.gmail.com", 587, false);
-            smtp.Authenticate("freegamesreminder@gmail.com", Environment.GetEnvironmentVariable("GAMESREMINDER_APP_KEY"));
+            smtp.Authenticate("freegamesreminder@gmail.com", emailAppKey);
 
             smtp.Send(email);
             smtp.Disconnect(true);

@@ -1,12 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 
 static class AuthenticationHelper {
-    public static IActionResult AuthenticateRequest(HttpRequest request, bool isAdmin) {
-
+    public static IActionResult AuthenticateRequest(HttpRequest request, bool isAdmin) 
+    {
         string hashedTargetToken = Environment.GetEnvironmentVariable("GAMESREMINDER_AUTH_TOKEN") ?? "";
         string hashedAdminTargetToken = Environment.GetEnvironmentVariable("GAMESREMINDER_AUTH_ADMIN_TOKEN") ?? "";
 
-        if (hashedTargetToken == "") {
+        if (hashedTargetToken == "" && !isAdmin && hashedAdminTargetToken == "") {
+            return new BadRequestObjectResult("No internal auth token set");
+        }
+        if (hashedAdminTargetToken == "" && isAdmin) {
             return new BadRequestObjectResult("No internal auth token set");
         }
 

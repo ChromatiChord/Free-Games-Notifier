@@ -19,7 +19,6 @@ namespace GamesNotifierApp.Controllers
         public IActionResult Get()
         {
             var emails = _dbIO.GetEmails();
-
             return Ok(emails);
         }
 
@@ -27,12 +26,7 @@ namespace GamesNotifierApp.Controllers
         [RequireAuth]
         [ValidateEmail]
         public IActionResult Put([FromBody] ClientUpdateModel body)
-        {
-            if (body.Email == null)
-            {
-                return BadRequest("Email is null");
-            }
-            
+        {            
             _dbIO.AddEmailToDb(body.Email);
 
             return Ok("Success");
@@ -42,12 +36,7 @@ namespace GamesNotifierApp.Controllers
         [RequireAdminAuth]
         [ValidateEmail]
         public IActionResult Delete([FromBody] ClientUpdateModel body)
-        {
-            if (body.Email == null)
-            {
-                return BadRequest("Email is null");
-            }
-            
+        {            
             _dbIO.RemoveEmailFromDB(body.Email);
 
             return Ok("Success");
@@ -55,7 +44,7 @@ namespace GamesNotifierApp.Controllers
 
         [HttpPost("DumpEmails", Name = "DumpEmails")]
         [RequireAdminAuth]
-        public IActionResult Post([FromBody] ClientUpdateModel body)
+        public IActionResult Post()
         {        
             _dbIO.DumpToEmailsDB();
 

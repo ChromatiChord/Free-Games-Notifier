@@ -74,7 +74,6 @@ class DatabaseIO : IDatabaseIO
     public Task<List<string>> GetEmails() 
     {
         EmailDBModel data = RetrieveFromEmailsDB().Result;
-
         return Task.FromResult(data.emails ?? new List<string>());
     }
 }
