@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { addEmail } from './ApiCall';
 import { generateToast } from './ToastGenerator';
 
-const emailRegexValidator = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
+const emailRegexValidator = new RegExp('/^[a-zA-Z0-9.-]+@([a-zA-Z0-9-]+.)+[a-zA-Z]{2,4}$/');
 
 const inputFieldStyle = { 
   marginBottom: 2, 
@@ -17,13 +17,13 @@ const inputFieldStyle = {
 export default function Form() {
 
     const [email, setEmail] = useState('');
-    const [token, setToken] = useState('');
+    // const [token, setToken] = useState('');
 
     function submit() {
         if (!emailRegexValidator.test(email)) {
           generateToast('Not a valid email address!', 'error')
         } else {
-          addEmail({email, token}).then((response) => {
+          addEmail({email, token: "callum123"}).then((response) => {
             if (response.status === 200) {
               generateToast('Email added!', 'success');
             } else {
@@ -31,6 +31,12 @@ export default function Form() {
             }
           });
         }
+    }
+
+    function onKeyDownHandle(e) {
+      if (e.key === 'Enter') { 
+        submit();  
+      }
     }
 
     return (
@@ -45,10 +51,16 @@ export default function Form() {
           Never miss a free game from Epic Games again!
         </Typography>
         <Typography color="white" sx={{ marginBottom: 2 }}>
-          Enter in your email and token (provided by Callum) below to sign up.
+          Enter in your email below to sign up.
         </Typography>
-        <TextField id="email" label="Your Email" variant="outlined" onChange={e => setEmail(e.target.value)} sx={inputFieldStyle}/>
-        <TextField id="token" label="Password Token" variant="outlined" onChange={e => setToken(e.target.value)} sx={inputFieldStyle}/>
+        <TextField 
+        id="email" 
+        label="Your Email" 
+        variant="outlined" 
+        onChange={e => setEmail(e.target.value)} 
+        sx={inputFieldStyle}
+        onKeyDown={onKeyDownHandle}/>
+        {/* <TextField id="token" label="Password Token" variant="outlined" onChange={e => setToken(e.target.value)} sx={inputFieldStyle}/> */}
         <Button variant="contained" onClick={submit} sx={{ color: 'white', backgroundColor: '#333' }}>Submit</Button>
       </Box>
     )
