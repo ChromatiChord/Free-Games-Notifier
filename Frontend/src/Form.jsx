@@ -51,7 +51,7 @@ export default function Form() {
           Never miss a free game from Epic Games again!
         </Typography>
         <Typography color="white" sx={{ marginBottom: 2 }}>
-          Enter in your email below to sign up.
+          Subscribe below for alerts on new free games.
         </Typography>
         <TextField 
         id="email" 

@@ -10,7 +10,7 @@ function App() {
     <Box sx={{ bgcolor: 'black', height: '100vh' }}>
       <ToastContainer />
       <Container 
-        maxWidth='sm'
+        maxWidth='xs'
         sx={{
           display: 'flex',
           flexDirection: 'column',
