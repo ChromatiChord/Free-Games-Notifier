@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Free-Games-Notifier/static/css/main.bc1dca3e.css",
-    "main.js": "/Free-Games-Notifier/static/js/main.9e8d4a00.js",
+    "main.js": "/Free-Games-Notifier/static/js/main.ca537900.js",
     "static/js/787.bcc3aad7.chunk.js": "/Free-Games-Notifier/static/js/787.bcc3aad7.chunk.js",
     "index.html": "/Free-Games-Notifier/index.html",
     "main.bc1dca3e.css.map": "/Free-Games-Notifier/static/css/main.bc1dca3e.css.map",
-    "main.9e8d4a00.js.map": "/Free-Games-Notifier/static/js/main.9e8d4a00.js.map",
+    "main.ca537900.js.map": "/Free-Games-Notifier/static/js/main.ca537900.js.map",
     "787.bcc3aad7.chunk.js.map": "/Free-Games-Notifier/static/js/787.bcc3aad7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bc1dca3e.css",
-    "static/js/main.9e8d4a00.js"
+    "static/js/main.ca537900.js"
   ]
 }
