@@ -27,6 +27,9 @@ namespace GamesNotifierApp.Controllers
         [ValidateEmail]
         public IActionResult Put([FromBody] ClientUpdateModel body)
         {            
+            if (_dbIO.EmailExists(body.Email).Result)
+                return Conflict("Email already exists in DB");
+            
             _dbIO.AddEmailToDb(body.Email);
 
             return Ok("Success");

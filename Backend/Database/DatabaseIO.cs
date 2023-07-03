@@ -56,6 +56,7 @@ class DatabaseIO : IDatabaseIO
 
         if(data.emails == null)
             data.emails = new List<string>();
+        
 
         data.emails.Add(email);
 
@@ -75,5 +76,11 @@ class DatabaseIO : IDatabaseIO
     {
         EmailDBModel data = RetrieveFromEmailsDB().Result;
         return Task.FromResult(data.emails ?? new List<string>());
+    }
+
+    public Task<bool> EmailExists(string email) 
+    {
+        EmailDBModel data = RetrieveFromEmailsDB().Result;
+        return Task.FromResult(data.emails?.Contains(email) ?? false);
     }
 }

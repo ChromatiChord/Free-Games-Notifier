@@ -85,4 +85,11 @@ class GCPDatabaseIO : IDatabaseIO
         EmailDBModel data = new EmailDBModel { emails = new List<string>() };
         await WriteToEmailDB(data);
     }
+
+    public Task<bool> EmailExists(string email) 
+    {
+        var data = RetrieveFromEmailsDB().Result;
+
+        return Task.FromResult(data.emails?.Contains(email) ?? false);
+    }
 }

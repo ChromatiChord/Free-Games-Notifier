@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { addEmail } from './ApiCall';
 import { generateToast } from './ToastGenerator';
 
-const emailRegexValidator = new RegExp('/^[a-zA-Z0-9.-]+@([a-zA-Z0-9-]+.)+[a-zA-Z]{2,4}$/');
+const emailRegexValidator = /^[a-zA-Z0-9.-]+@([a-zA-Z0-9-]+.)+[a-zA-Z]{2,4}$/;
 
 const inputFieldStyle = { 
   marginBottom: 2, 
@@ -26,7 +26,11 @@ export default function Form() {
           addEmail({email, token: "callum123"}).then((response) => {
             if (response.status === 200) {
               generateToast('Email added!', 'success');
+            } else if (response.response.status === 409) {
+              generateToast('Email already registered!', 'error');
             } else {
+              console.log(response);
+              console.log(response.status);
               generateToast('Error adding email', 'error');
             }
           });

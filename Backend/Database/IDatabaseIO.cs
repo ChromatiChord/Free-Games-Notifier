@@ -8,4 +8,5 @@ interface IDatabaseIO
     Task AddEmailToDb(string email);
     Task RemoveEmailFromDB(string email);
     Task<List<string>> GetEmails();
+    Task<bool> EmailExists(string email) ;
 }
