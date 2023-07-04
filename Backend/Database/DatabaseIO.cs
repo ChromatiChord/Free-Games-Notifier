@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 class DatabaseIO : IDatabaseIO
 {
     private string _epicGamesDbPath = "./Database/epicgamesdb.json";
-    private string _emailsDbPath = "./Database/emails.json";
+    private string _usersDbPath = "./Database/users.json";
 
     public Task WriteEpicGamesDB(List<EpicGameInfoModel> models)
     {
@@ -25,62 +25,70 @@ class DatabaseIO : IDatabaseIO
         return Task.FromResult(result ?? new List<EpicGameInfoModel>());
     }
 
-    public Task<EmailDBModel> RetrieveFromEmailsDB()
+    public Task<List<UserModel>> RetrieveFromUsersDB()
     {
-        if (!File.Exists(_emailsDbPath))
+        if (!File.Exists(_usersDbPath))
         {
-            return Task.FromResult(new EmailDBModel());
+            return Task.FromResult(new List<UserModel>());
         }
 
-        string json = File.ReadAllText(_emailsDbPath);
-        var result = JsonSerializer.Deserialize<EmailDBModel>(json);
-        return Task.FromResult(result ?? new EmailDBModel());
+        string json = File.ReadAllText(_usersDbPath);
+        var result = JsonSerializer.Deserialize<List<UserModel>>(json);
+        return Task.FromResult(result ?? new List<UserModel>());
     }
 
-    public Task DumpToEmailsDB() 
+    public Task DumpToUsersDB() 
     {
-        EmailDBModel data = new();
-        data.emails = new List<string>();
-        return WriteToEmailDB(data);
+        List<UserModel> data = new List<UserModel>();
+        return WriteToUserDB(data);
     }
 
-    public Task WriteToEmailDB(EmailDBModel emails) {
-        string json = JsonSerializer.Serialize(emails);
-        File.WriteAllText(_emailsDbPath, json);
+    public Task WriteToUserDB(List<UserModel> users) {
+        string json = JsonSerializer.Serialize(users);
+        File.WriteAllText(_usersDbPath, json);
         return Task.CompletedTask;
     }
 
-    public Task AddEmailToDb(string email) 
+    public Task AddUserToDb(string email, List<string> services) 
     {
-        EmailDBModel data = RetrieveFromEmailsDB().Result;
 
-        if(data.emails == null)
-            data.emails = new List<string>();
-        
-
-        data.emails.Add(email);
-
-        return WriteToEmailDB(data);
+        UserModel newUser = new() {
+            email = email,
+            uuid = Guid.NewGuid().ToString(),
+            services = services
+        };
+        List<UserModel> data = RetrieveFromUsersDB().Result;
+        data.Add(newUser);
+        return WriteToUserDB(data);
     }
 
-    public Task RemoveEmailFromDB(string email) 
+    public Task RemoveUserFromDB(string uuid) 
     {
-        EmailDBModel data = RetrieveFromEmailsDB().Result;
+        List<UserModel> data = RetrieveFromUsersDB().Result;
 
-        data.emails?.Remove(email);
+        var userToRemove = data.FirstOrDefault(u => u.uuid == uuid);
+        if (userToRemove != null)
+        {
+            data.Remove(userToRemove);
+        }
 
-        return WriteToEmailDB(data);
+        return WriteToUserDB(data);
     }
 
-    public Task<List<string>> GetEmails() 
+    public Task<List<UserModel>> GetUsers() 
     {
-        EmailDBModel data = RetrieveFromEmailsDB().Result;
-        return Task.FromResult(data.emails ?? new List<string>());
+        List<UserModel> data = RetrieveFromUsersDB().Result;
+        return Task.FromResult(data);
     }
 
     public Task<bool> EmailExists(string email) 
     {
-        EmailDBModel data = RetrieveFromEmailsDB().Result;
-        return Task.FromResult(data.emails?.Contains(email) ?? false);
+        List<UserModel> data = RetrieveFromUsersDB().Result;
+        return Task.FromResult(data.Any(u => u.email == email));
+    }
+
+    public async Task<List<string>> GetAllUserEmails() {
+        List<UserModel> users = await GetUsers();
+        return users.Select(user => user.email).ToList();
     }
 }

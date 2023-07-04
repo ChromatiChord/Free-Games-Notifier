@@ -4,52 +4,54 @@ namespace GamesNotifierApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EmailController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly ILogger<EmailController> _logger;
+        private readonly ILogger<UserController> _logger;
         private IDatabaseIO _dbIO = DataIOFactory.DatabaseIOCreate();
 
-        public EmailController(ILogger<EmailController> logger)
+        public UserController(ILogger<UserController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet("GetEmails", Name = "GetEmails")]
+        [HttpGet("GetUsers", Name = "GetUsers")]
         [RequireAdminAuth]
         public IActionResult Get()
         {
-            var emails = _dbIO.GetEmails();
+            var emails = _dbIO.GetUsers();
             return Ok(emails);
         }
 
-        [HttpPut("AddEmail", Name = "AddEmail")]
+        [HttpPut("AddUser", Name = "AddUser")]
         [RequireAuth]
         [ValidateEmail]
-        public IActionResult Put([FromBody] ClientUpdateModel body)
+        public IActionResult Put([FromBody] UserUpdateRequestModel body)
         {            
             if (_dbIO.EmailExists(body.Email).Result)
                 return Conflict("Email already exists in DB");
+
+            if (body.Services.Count == 0)
+                return BadRequest("No services provided");
             
-            _dbIO.AddEmailToDb(body.Email);
+            _dbIO.AddUserToDb(body.Email, body.Services);
 
             return Ok("Success");
         }
 
-        [HttpDelete("RemoveEmail", Name = "RemoveEmail")]
+        [HttpDelete("RemoveUser", Name = "RemoveUser")]
         [RequireAdminAuth]
-        [ValidateEmail]
-        public IActionResult Delete([FromBody] ClientUpdateModel body)
+        public IActionResult Delete([FromBody] RemoveUserModel body)
         {            
-            _dbIO.RemoveEmailFromDB(body.Email);
+            _dbIO.RemoveUserFromDB(body.Uuid);
 
             return Ok("Success");
         }
 
-        [HttpPost("DumpEmails", Name = "DumpEmails")]
+        [HttpPost("DumpUserDB", Name = "DumpUserDB")]
         [RequireAdminAuth]
         public IActionResult Post()
         {        
-            _dbIO.DumpToEmailsDB();
+            _dbIO.DumpToUsersDB();
 
             return Ok();
         }

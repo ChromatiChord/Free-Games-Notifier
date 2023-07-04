@@ -1761,19 +1761,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thoma\\.nuget\\packages\\": {}
+    "C:\\Users\\William\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\GamesNotifierApp.csproj",
+      "projectUniqueName": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj",
       "projectName": "GamesNotifierApp",
-      "projectPath": "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\GamesNotifierApp.csproj",
-      "packagesPath": "C:\\Users\\thoma\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thoma\\Desktop\\Languages\\Csharp\\Free-Games-Notifier\\Backend\\obj\\",
+      "projectPath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\GamesNotifierApp.csproj",
+      "packagesPath": "C:\\Users\\William\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\William\\Desktop\\Languages\\Csharp\\GameNotifier\\Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\thoma\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\William\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"

@@ -31,65 +31,76 @@ class GCPDatabaseIO : IDatabaseIO
             .ToList();
     }
 
-    public async Task<EmailDBModel> RetrieveFromEmailsDB()
+    public async Task<List<UserModel>> RetrieveFromUsersDB()
     {
-        DocumentReference docRef = _db.Collection("emails").Document("emailData");
-        DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+        Query query = _db.Collection("users");
+        QuerySnapshot snapshot = await query.GetSnapshotAsync();
 
-        if (snapshot.Exists)
+        if (snapshot.Documents.Any())
         {
-            return snapshot.ConvertTo<EmailDBModel>();
+            return snapshot.Documents
+                .Select(document => document.ConvertTo<UserModel>())
+                .ToList();
         }
         else
         {
-            return new EmailDBModel();
+            return new List<UserModel>();
         }
     }
 
-    public async Task WriteToEmailDB(EmailDBModel emails)
+    public async Task WriteToUserDB(List<UserModel> users)
     {
-        DocumentReference docRef = _db.Collection("emails").Document("emailData");
-        await docRef.SetAsync(emails);
+        CollectionReference collectionReference = _db.Collection("users");
+        foreach (var user in users)
+        {
+            await collectionReference.AddAsync(user);
+        }
     }
 
-    public async Task AddEmailToDb(string email) 
+    public async Task AddUserToDb(string email, List<string> services) 
     {
-        var data = await RetrieveFromEmailsDB();
-
-        if(data.emails == null)
-            data.emails = new List<string>();
-
-        data.emails.Add(email);
-
-        await WriteToEmailDB(data);
+        var users = await RetrieveFromUsersDB();
+        users.Add(new UserModel() {
+            email = email,
+            uuid = Guid.NewGuid().ToString(),
+            services = services
+        });
+        await WriteToUserDB(users);
+        
     }
 
-    public async Task RemoveEmailFromDB(string email) 
+    public async Task RemoveUserFromDB(string uuid) 
     {
-        var data = await RetrieveFromEmailsDB();
+        var users = await RetrieveFromUsersDB();
+        var userToRemove = users.FirstOrDefault(u => u.uuid == uuid);
+        if (userToRemove != null)
+        {
+            users.Remove(userToRemove);
+        }
 
-        data.emails?.Remove(email);
-
-        await WriteToEmailDB(data);
+        await WriteToUserDB(users);
     }
 
-    public async Task<List<string>> GetEmails() 
+    public async Task<List<UserModel>> GetUsers() 
     {
-        var data = await RetrieveFromEmailsDB();
-
-        return data.emails ?? new List<string>();
+        return await RetrieveFromUsersDB();
     }
 
-    public async Task DumpToEmailsDB() 
+    public async Task DumpToUsersDB() 
     {
-        EmailDBModel data = new EmailDBModel { emails = new List<string>() };
-        await WriteToEmailDB(data);
+        List<UserModel> users = new List<UserModel>();
+        await WriteToUserDB(users);
     }
 
-    public Task<bool> EmailExists(string email) 
+    public async Task<bool> EmailExists(string email) 
     {
-        var data = RetrieveFromEmailsDB().Result;
+        var users = await RetrieveFromUsersDB();
 
-        return Task.FromResult(data.emails?.Contains(email) ?? false);
+        return users.Any(u => u.email == email);
+    }
+
+    public async Task<List<string>> GetAllUserEmails() {
+        List<UserModel> users = await GetUsers();
+        return users.Select(user => user.email).ToList();
     }
 }

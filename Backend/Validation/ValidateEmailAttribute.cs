@@ -6,9 +6,7 @@ public class ValidateEmailAttribute : ActionFilterAttribute
 {
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        var body = context.ActionArguments.ContainsKey("body") 
-                     ? context.ActionArguments["body"] as ClientUpdateModel 
-                     : null;
+        var body = context.ActionArguments["body"] as UserUpdateRequestModel;
 
         var email = new EmailAddressAttribute();
 
