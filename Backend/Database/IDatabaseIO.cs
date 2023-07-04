@@ -9,5 +9,6 @@ interface IDatabaseIO
     Task RemoveUserFromDB(string uuid);
     Task<List<UserModel>> GetUsers();
     Task<bool> EmailExists(string email);
+    Task<bool> UserExists(string uuid);
     Task<List<string>> GetAllUserEmails();
 }

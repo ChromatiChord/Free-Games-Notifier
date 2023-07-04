@@ -23,7 +23,6 @@ namespace GamesNotifierApp.Controllers
         }
 
         [HttpPut("AddUser", Name = "AddUser")]
-        [RequireAuth]
         [ValidateEmail]
         public IActionResult Put([FromBody] UserUpdateRequestModel body)
         {            
@@ -32,17 +31,22 @@ namespace GamesNotifierApp.Controllers
 
             if (body.Services.Count == 0)
                 return BadRequest("No services provided");
+
+            if (_dbIO.GetAllUserEmails().Result.Count >= 20)
+                return BadRequest("Too many users in DB, try again later");
             
             _dbIO.AddUserToDb(body.Email, body.Services);
 
             return Ok("Success");
         }
 
-        [HttpDelete("RemoveUser", Name = "RemoveUser")]
-        [RequireAdminAuth]
-        public IActionResult Delete([FromBody] RemoveUserModel body)
-        {            
-            _dbIO.RemoveUserFromDB(body.Uuid);
+        [HttpDelete("RemoveUser/{uuid}", Name = "RemoveUser")]
+        public IActionResult Delete(string uuid)
+        {    
+            if (!_dbIO.UserExists(uuid).Result)
+                return NotFound("User not found in DB");
+
+            _dbIO.RemoveUserFromDB(uuid);
 
             return Ok("Success");
         }

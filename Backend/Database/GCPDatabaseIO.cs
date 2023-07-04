@@ -99,6 +99,12 @@ class GCPDatabaseIO : IDatabaseIO
         return users.Any(u => u.email == email);
     }
 
+    public Task<bool> UserExists(string uuid) 
+    {
+        List<UserModel> data = RetrieveFromUsersDB().Result;
+        return Task.FromResult(data.Any(u => u.uuid == uuid));
+    }
+
     public async Task<List<string>> GetAllUserEmails() {
         List<UserModel> users = await GetUsers();
         return users.Select(user => user.email).ToList();

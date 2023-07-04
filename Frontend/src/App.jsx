@@ -1,9 +1,15 @@
 import { Container, Box } from '@mui/material';
-import Form from './Form';
-import { imageSource } from './config';
+import FormPage from './Pages/FormPage';
+import {
+  Routes,
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
+
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UnsubPage from './Pages/UnsubPage';
 
 function App() {
   return (
@@ -16,10 +22,12 @@ function App() {
           flexDirection: 'column',
           alignItems: 'center',
         }}>
-        <Box sx={{ marginBottom: 2 }}>
-          <img src={imageSource} alt="Epic Games Logo"  height="170vh"/>
-        </Box>
-        <Form />
+        <Router>
+          <Routes>
+            <Route path="/Free-Games-Notifier" element={<FormPage />}/>
+            <Route path="/Free-Games-Notifier/unsub/:uuid" element={<UnsubPage />}/>
+          </Routes>
+        </Router>
       </Container>
     </Box>
   );
